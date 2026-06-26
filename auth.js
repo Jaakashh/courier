@@ -45,7 +45,7 @@ export function checkAuthState() {
         if (!user) {
             // જો લોગિન ન હોય તો પાછા લોગિન પેજ પર મોકલી દેવા
             if (!window.location.href.toLowerCase().includes("index.html")) {
-                window.location.href = "Index.html";
+                window.location.href = "index.html";
             }
         }
     });
