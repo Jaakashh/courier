@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>પાર્ટી માસ્ટર - Ma Umiya Enterprise</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Mobile toggle -->
+<button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">
+    <i class="fas fa-bars"></i>
+</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">
+            <i class="fas fa-truck-fast"></i>
+        </div>
+        <div>
+            <div class="sidebar-brand-text">Ma Umiya</div>
+            <div class="sidebar-brand-sub">Enterprise</div>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> ડેશબોર્ડ</a>
+        <a href="party-master.html" class="active"><i class="fa-solid fa-users"></i> પાર્ટી માસ્ટર</a>
+        <a href="company-master.html"><i class="fa-solid fa-building"></i> કંપની પ્રોફાઇલ</a>
+        <a href="bill-create.html"><i class="fa-solid fa-file-invoice-dollar"></i> નવું બિલ</a>
+        <a href="bill-list.html"><i class="fa-solid fa-list"></i> બધા બિલ</a>
+    </nav>
+</div>
+
+<div class="main-content page-enter">
+    <div class="header-section">
+        <h3><i class="fa-solid fa-users"></i>પાર્ટી માસ્ટર</h3>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-4 col-md-5">
+            <div class="form-card">
+                <div class="form-card-header">
+                    <h4><i class="fas fa-user-plus"></i>નવી પાર્ટી એડ કરો</h4>
+                </div>
+                <form id="partyForm">
+                    <input type="hidden" id="partyId">
+                    
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-user"></i> પાર્ટીનું નામ</label>
+                        <input type="text" class="form-control" id="pName" placeholder="દા.ત. શિવ શક્તિ ટ્રેડર્સ" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-phone"></i> મોબાઈલ / ઈમેઈલ</label>
+                        <input type="text" class="form-control" id="pEmail" placeholder="9898XXXXXX અથવા mail@abc.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-hashtag"></i> GSTIN</label>
+                        <input type="text" class="form-control" id="pGstin" placeholder="24XXXXX0000X1ZX">
+                    </div>
+                    
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary flex-fill" id="savePartyBtn">
+                            <i class="fas fa-floppy-disk"></i> પાર્ટી સેવ કરો
+                        </button>
+                        <button type="button" class="btn btn-ghost flex-fill d-none" id="cancelEditBtn">
+                            <i class="fas fa-times"></i> કેન્સલ કરો
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-7">
+            <div class="table-card">
+                <h4><i class="fas fa-address-book"></i>બધી પાર્ટીઓની યાદી</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>પાર્ટીનું નામ</th>
+                                <th>સંપર્ક વિગત</th>
+                                <th>GSTIN</th>
+                                <th class="text-center" style="width: 100px;">એક્શન</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partiesTableBody">
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>ડેટા લોડ થઈ રહ્યો છે...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="party-master.js"></script>
+<script>
+    // Mobile sidebar toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        });
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+       
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tax Invoice – Ma Umiya Enterprise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #0f1923;
+      --ink-mid:   #3d4f5e;
+      --ink-soft:  #7a8d9b;
+      --rule:      #d0d8df;
+      --accent:    #1a56a0;
+      --accent-lt: #e8f0fb;
+      --bg:        #ffffff;
+      --stripe:    #f5f7f9;
+      --red:       #c0392b;
+      --green:     #1a7a4a;
+    }
+
+    body {
+      background: #dce3ea;
+      font-family: 'Inter', 'Noto Sans Gujarati', sans-serif;
+      font-size: 11.5px;
+      color: var(--ink);
+      padding: 24px 12px;
+    }
+
+    /* ─── WRAPPER ─────────────────────────────────── */
+    .invoice {
+      background: var(--bg);
+      width: 210mm;
+      max-width: 100%;
+      margin: 0 auto;
+      border: 1px solid var(--rule);
+      box-shadow: 0 4px 32px rgba(0,0,0,.12);
+    }
+
+    /* ─── HEADER BAND ─────────────────────────────── */
+    .inv-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0;
+      border-bottom: 3px solid var(--accent);
+    }
+    .inv-header-left {
+      padding: 22px 24px 18px;
+      border-right: 1px solid var(--rule);
+    }
+    .company-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -.3px;
+      line-height: 1.2;
+    }
+    .company-tag {
+      font-size: 9.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    .company-meta { color: var(--ink-mid); line-height: 1.7; font-size: 10.5px; }
+    .company-meta strong { color: var(--ink); font-weight: 600; }
+
+    .inv-header-right {
+      padding: 22px 24px 18px;
+      min-width: 220px;
+      text-align: right;
+    }
+    .inv-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+    .inv-meta-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3px 10px;
+      text-align: left;
+    }
+    .inv-meta-grid .lbl { color: var(--ink-soft); font-size: 10px; text-transform: uppercase; letter-spacing: .6px; white-space: nowrap; }
+    .inv-meta-grid .val { font-weight: 600; color: var(--ink); font-size: 11px; }
+    .inv-meta-grid .val.bill-no { color: var(--accent); }
+
+    /* ─── PARTY BAND ──────────────────────────────── */
+    .party-band {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--rule);
+    }
+    .party-box {
+      padding: 14px 24px;
+    }
+    .party-box:first-child { border-right: 1px solid var(--rule); }
+    .party-section-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .party-name { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+    .party-detail { color: var(--ink-mid); line-height: 1.7; font-size: 10.5px; }
+    .party-detail strong { color: var(--ink); font-weight: 600; }
+
+    /* ─── TRANSPORT / EXTRA META STRIP ────────────── */
+    .meta-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-bottom: 2px solid var(--accent);
+      background: var(--accent-lt);
+    }
+    .meta-cell {
+      padding: 7px 14px;
+      border-right: 1px solid #c5d5ec;
+    }
+    .meta-cell:last-child { border-right: none; }
+    .meta-cell .mc-lbl { font-size: 8.5px; text-transform: uppercase; letter-spacing: .8px; color: var(--accent); font-weight: 600; }
+    .meta-cell .mc-val { font-size: 11px; font-weight: 600; color: var(--ink); margin-top: 1px; }
+
+    /* ─── TABLE ───────────────────────────────────── */
+    .inv-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    .inv-table thead tr {
+      background: var(--ink);
+      color: #fff;
+    }
+    .inv-table thead th {
+      padding: 8px 10px;
+      font-weight: 600;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      text-align: center;
+      border: 1px solid #2c3e50;
+    }
+    .inv-table thead th:nth-child(5) { text-align: left; }
+    .inv-table tbody tr:nth-child(even) { background: var(--stripe); }
+    .inv-table tbody tr:hover { background: var(--accent-lt); }
+    .inv-table tbody td {
+      padding: 7px 10px;
+      border: 1px solid var(--rule);
+      text-align: center;
+      vertical-align: middle;
+      color: var(--ink-mid);
+    }
+    .inv-table tbody td.td-party { text-align: left; font-weight: 500; color: var(--ink); }
+    .inv-table tbody td.td-doc { color: var(--accent); font-weight: 600; font-size: 10px; }
+    .inv-table tbody td.td-amount { font-weight: 600; color: var(--ink); text-align: right; }
+    .inv-table tbody td.td-weight { font-weight: 500; }
+
+    /* subtotal row */
+    .inv-table tbody tr.subtotal-row td {
+      background: var(--stripe);
+      font-weight: 700;
+      color: var(--ink);
+      border-top: 2px solid var(--rule);
+      font-size: 11px;
+    }
+
+    /* ─── FOOTER SECTION ──────────────────────────── */
+    .inv-footer {
+      display: grid;
+      grid-template-columns: 1fr 160px 1fr;
+      gap: 0;
+      border-top: 2px solid var(--accent);
+    }
+    /* bank */
+    .bank-section {
+      padding: 16px 20px;
+      border-right: 1px solid var(--rule);
+    }
+    .section-title {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .bank-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 3px; font-size: 10.5px; }
+    .bank-row .bk-lbl { color: var(--ink-soft); white-space: nowrap; }
+    .bank-row .bk-val { font-weight: 600; color: var(--ink); text-align: right; }
+
+    /* qr */
+    .qr-section {
+      padding: 16px 12px;
+      text-align: center;
+      border-right: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    #qrcode canvas, #qrcode img { width: 90px !important; height: 90px !important; }
+    .qr-label { font-size: 9px; color: var(--ink-soft); text-align: center; }
+    .qr-amount { font-size: 12px; font-weight: 700; color: var(--accent); }
+
+    /* totals */
+    .totals-section { padding: 16px 20px; }
+    .totals-table { width: 100%; border-collapse: collapse; }
+    .totals-table tr td { padding: 4px 6px; font-size: 11px; }
+    .totals-table tr td:first-child { color: var(--ink-mid); }
+    .totals-table tr td:last-child { text-align: right; font-weight: 600; color: var(--ink); }
+    .totals-table .row-gst td { color: var(--ink-soft); font-size: 10px; }
+    .totals-table .row-grand td {
+      border-top: 2px solid var(--accent);
+      padding-top: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ─── TERMS ───────────────────────────────────── */
+    .terms-band {
+      border-top: 1px solid var(--rule);
+      padding: 10px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background: var(--stripe);
+    }
+    .terms-band p { font-size: 9.5px; color: var(--ink-soft); line-height: 1.6; }
+    .terms-band strong { color: var(--ink); }
+    .sig-area {
+      text-align: right;
+      margin-top: 6px;
+    }
+    .sig-line { border-top: 1px solid var(--ink-mid); width: 140px; margin-left: auto; padding-top: 4px; font-size: 9.5px; color: var(--ink-mid); }
+
+    /* ─── BADGES ─────────────────────────────────── */
+    .badge-original {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 2px 7px;
+      border-radius: 2px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* ─── PRINT ───────────────────────────────────── */
+    .no-print { position: fixed; top: 16px; right: 16px; display: flex; gap: 8px; z-index: 99; }
+    .btn-act {
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+    }
+    .btn-print { background: var(--accent); color: #fff; }
+    .btn-new   { background: #fff; color: var(--accent); border: 1.5px solid var(--accent); }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .no-print { display: none !important; }
+      .invoice { box-shadow: none; border: none; width: 100%; }
+    }
+    @page { margin: 10mm; size: A4; }
+  </style>
+</head>
+<body>
+
+<!-- ACTION BAR -->
+<div class="no-print">
+  <button class="btn-act btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+  <a href="bill-create.html" class="btn-act btn-new">＋ New Bill</a>
+</div>
+
+<div class="invoice">
+
+  <!-- ① HEADER -->
+  <div class="inv-header">
+    <div class="inv-header-left">
+      
+      <div class="company-name" id="lblCompName"></div>
+      <div class="company-meta" id="lblCompAddress" style="margin-top:6px;">
+        
+      </div>
+      <div class="company-meta" style="margin-top:4px;">
+        <strong>Mobile:</strong> <span id="lblCompMobile"></span> &nbsp;|&nbsp;
+        <strong>GSTIN:</strong> <span id="lblCompGSTIN"></span>
+      </div>
+    </div>
+    <div class="inv-header-right">
+      <div class="inv-title">Tax Invoice <span class="badge-original">Original</span></div>
+      <div class="inv-meta-grid">
+        <span class="lbl">Invoice No.</span>  <span class="val bill-no" id="lblBillNo"></span>
+        <span class="lbl">Date</span>         <span class="val" id="lblBillDate"></span>
+       
+      </div>
+    </div>
+  </div>
+
+  <!-- ② PARTY BAND -->
+  <div class="party-band">
+    <div class="party-box">
+      <div class="party-section-label">Bill To (Consignee)</div>
+      <div class="party-name" id="lblPartyName"></div>
+      <div class="party-detail">
+        <strong>Address:</strong> <span id="lblPartyAddr"></span><br>
+        <strong>Contact:</strong> <span id="lblPartyContact"></span><br>
+        <strong>GSTIN:</strong> <span id="lblPartyGSTIN"></span>
+      </div>
+    </div>
+   
+  </div>
+
+    <!-- ④ ITEMS TABLE -->
+  <table class="inv-table" id="printItemsBody-wrapper">
+    <thead>
+      <tr>
+        <th style="width:100px">DATE</th>
+        <th style="width:90px">CENTER</th>
+        <th style="width:110px">DOCUMENT NO.</th>
+        <th style="min-width:140px; text-align:left">PARTY NAME</th>
+        <th style="width:70px">WEIGHT<br><span style="font-weight:400;font-size:8px">(KG)</span></th>
+        <th style="width:80px">AMOUNT (₹)</th>
+      </tr>
+    </thead>
+    <tbody id="printItemsBody">
+     </tbody>
+  </table>
+
+  <!-- ⑤ FOOTER -->
+  <div class="inv-footer">
+
+    <!-- Bank Details -->
+    <div class="bank-section">
+      <div class="section-title">Bank Details</div>
+      <div class="bank-row"><span class="bk-lbl">Bank Name</span>  <span class="bk-val" id="lblBankName">State Bank of India</span></div>
+      <div class="bank-row"><span class="bk-lbl">Branch</span>      <span class="bk-val">Vatva, Ahmedabad</span></div>
+      <div class="bank-row"><span class="bk-lbl">A/C No.</span>     <span class="bk-val" id="lblBankAcc">3874 5678 9012</span></div>
+      <div class="bank-row"><span class="bk-lbl">IFSC Code</span>   <span class="bk-val" id="lblBankIFSC">SBIN0011234</span></div>
+      <div class="bank-row"><span class="bk-lbl">Account Type</span><span class="bk-val">Current</span></div>
+    </div>
+
+    <!-- QR -->
+    <div class="qr-section">
+      <div class="section-title" style="text-align:center; border:none; margin-bottom:4px;">Scan to Pay</div>
+      <div id="qrcode"></div>
+      <div class="qr-amount" id="lblQrAmount">0.00</div>
+      
+    </div>
+
+    <!-- Totals -->
+    <div class="totals-section">
+      <div class="section-title">Summary</div>
+      <table class="totals-table">
+        <tr>
+          <td>Sub Total (Before GST)</td>
+          <td>₹<span id="lblSubTotalFoot">0.00</span></td>
+        </tr>
+        <tr class="row-gst">
+          <td>CGST @ 9%</td>
+          <td>₹<span id="lblCGST">0.00</span></td>
+        </tr>
+        <tr class="row-gst">
+          <td>SGST @ 9%</td>
+          <td>₹<span id="lblSGST">0.00</span></td>
+        </tr>
+        <tr class="row-gst">
+          <td style="font-size:10px">Total GST (18%)</td>
+          <td>₹<span id="lblGST">0.00</span></td>
+        </tr>
+        <tr>
+          <td>Round Off</td>
+          <td>₹<span id="lblRoundOff">0.00</span></td>
+        </tr>
+        <tr class="row-grand">
+          <td>Grand Total</td>
+          <td>₹<span id="lblGrandTotal">0.00</span></td>
+        </tr>
+      </table>
+    </div>
+
+  </div><!-- /inv-footer -->
+
+  <!-- ⑥ TERMS + SIGNATURE -->
+  
+</div><!-- /invoice -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script type="module" src="print-bill.js"></script>
+</body>
+</html>
