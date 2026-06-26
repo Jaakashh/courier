@@ -44,8 +44,8 @@ export function checkAuthState() {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             // જો લોગિન ન હોય તો પાછા લોગિન પેજ પર મોકલી દેવા
-            if (!window.location.href.toLowerCase().includes("login.html")) {
-                window.location.href = "Login.html";
+            if (!window.location.href.toLowerCase().includes("index.html")) {
+                window.location.href = "Index.html";
             }
         }
     });
