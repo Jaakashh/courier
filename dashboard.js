@@ -27,7 +27,7 @@ if (logoutBtn) {
     logoutBtn.addEventListener("click", (e) => {
         e.preventDefault();
         if (confirm("શું તમે ખરેખર લોગઆઉટ કરવા માંગો છો?")) {
-            signOut(auth).then(() => { window.location.href = "Login.html"; });
+            signOut(auth).then(() => { window.location.href = "index.html"; });
         }
     });
 }
