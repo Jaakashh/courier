@@ -18,7 +18,7 @@ let paymentModalBootstrap;
 // 🔒 ૧. સિક્યોરિટી ચેક: જો લોગિન ન હોય તો બહાર કાઢો
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        window.location.href = "Login.html";
+        window.location.href = "index.html";
     }
 });
 
