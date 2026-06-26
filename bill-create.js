@@ -156,8 +156,8 @@ billForm.addEventListener("submit", async (e) => {
                 invoice_number: nextBillNo.toString(),
                 amount_due: billData.grandTotal.toFixed(2),
                 due_date: document.getElementById("billDate").value,
-                invoice_link: `https://jaakashh.github.io/courier/print-bill.html?billNo=${nextBillNo}`,
-                pdf_link: `https://jaakashh.github.io/courier/print-bill.html?billNo=${nextBillNo}`
+                invoice_link: `https://jaakashh.github.io/courier/BillLink.html?billNo=${nextBillNo}`,
+                pdf_link: `https://jaakashh.github.io/courier/BillLink.html?billNo=${nextBillNo}`
             };
 
             try {
